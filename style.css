@@ -41,14 +41,22 @@
     
 }
 
-.clear-button {
-    font-size: 30px;
-    margin: 20px;
+.clear-button, .delete-button {
+    font-size: 25px;
     border: 2px solid black;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 6px;
     border-radius: 10px;
-    background-color: red;
     color: whitesmoke;
+}
+
+.clear-button {
+    background-color: red;
+}
+
+.delete-button {
+    background-color: red;
 }
 
 .display {
@@ -60,4 +68,14 @@
     border: 2px solid black;
     border-radius: 10px;
 
+}
+
+.display button {
+    height: 50%;
+    width: 100%;
+}
+
+.special-buttons {
+    display: flex;
+    gap: 20px;
 }

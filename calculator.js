@@ -1,3 +1,5 @@
+const firstButtonDisplay = document.querySelector(".number-display");
+
 function add(a,b) {
     return a + b;
 }
@@ -28,4 +30,14 @@ function operate(a, b, operator) {
 
 }
 
-console.log(operate(1, 2, "-"));
+function buttonPressed(event) {
+    let buttonText = event.target.textContent;
+    firstButtonDisplay.textContent = buttonText;
+}
+
+//this applies not to the clear and delete buttons because th
+const button = document.querySelectorAll("button");
+
+button.forEach((element) => {
+    element.addEventListener("click", buttonPressed)
+});
