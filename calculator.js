@@ -1,6 +1,18 @@
 const firstButtonDisplay = document.querySelector(".number-display");
-let limit = 0;
+const secondButtonDisplay = document.querySelector(".upper-display");
+let chosenOperator;
+let operatorEnabled = true;
 
+//numbers before the operator comes
+let choseNumbersFirst;
+let limit = 0;
+function operatorGiven(button, buttonText) {
+    choseNumbersFirst = firstButtonDisplay.textContent;
+    chosenOperator = buttonText;
+    firstButtonDisplay.textContent = "";
+    operatorEnabled = false;
+    secondButtonDisplay.textContent = choseNumbersFirst + chosenOperator;
+}
 function add(a,b) {
     return a + b;
 }
@@ -37,17 +49,27 @@ function buttonPressed(event) {
     let firstDisplayText = firstButtonDisplay.textContent;
     
     if (button.className == "clear-button") {
+        limit = 0;
+        firstButtonDisplay.textContent = "";
         return;
     } else if (button.className == "delete-button") {
-        console.log("hi")
         if (limit > 0) limit--;
-        console.log(limit)
         firstButtonDisplay.textContent = firstDisplayText.slice(0, -1);
         return;
-    } 
+    }
+
+    if (button.className == "operator") {
+        if (operatorEnabled == false) {
+            return;
+        }
+        operatorGiven(button, buttonText)
+        limit = 0;
+        return;
+    }
+
     limit++;
 
-    if (limit < 16) {
+    if (limit < 15) {
         firstButtonDisplay.textContent += buttonText;
     }
     
