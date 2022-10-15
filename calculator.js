@@ -31,8 +31,9 @@ function operate(a, b, operator) {
 }
 
 function buttonPressed(event) {
-    let buttonText = event.target.textContent;
-    firstButtonDisplay.textContent = buttonText;
+    let button = event.target;
+    let buttonText = button.textContent;
+    firstButtonDisplay.textContent += buttonText;
 }
 
 //this applies not to the clear and delete buttons because th
