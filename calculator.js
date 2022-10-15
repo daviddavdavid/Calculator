@@ -2,16 +2,20 @@ const firstButtonDisplay = document.querySelector(".number-display");
 const secondButtonDisplay = document.querySelector(".upper-display");
 let chosenOperator;
 let operatorEnabled = true;
+let equalsEnabled = false;
 
 //numbers before the operator comes
 let choseNumbersFirst;
+
+let choseNumberSecond;
 let limit = 0;
 function operatorGiven(button, buttonText) {
-    choseNumbersFirst = firstButtonDisplay.textContent;
+    choseNumbersFirst = Number(firstButtonDisplay.textContent);
     chosenOperator = buttonText;
     firstButtonDisplay.textContent = "";
     operatorEnabled = false;
-    secondButtonDisplay.textContent = choseNumbersFirst + chosenOperator;
+    secondButtonDisplay.textContent = `${choseNumbersFirst}${chosenOperator}`;
+    equalsEnabled = true;
 }
 function add(a,b) {
     return a + b;
@@ -29,16 +33,17 @@ function divide(a, b) {
     return a / b;
 }
 
-function operate(a, b, operator) {
-    switch(operator) {
+function operate() {
+    
+    switch(chosenOperator) {
         case "+":
-            return add(a, b);
+            return add(choseNumbersFirst, choseNumberSecond);
         case "-":
-            return subtract(a, b);
-        case "*":
-            return multiply(a, b);
+            return subtract(choseNumbersFirst, choseNumberSecond);
+        case "x":
+            return multiply(choseNumbersFirst, choseNumberSecond);
         case "/":
-            return divide(a, b);
+            return divide(choseNumbersFirst, choseNumberSecond);
     }
 
 }
@@ -64,6 +69,17 @@ function buttonPressed(event) {
         }
         operatorGiven(button, buttonText)
         limit = 0;
+        return;
+    }
+
+    if (button.className == "equals") {
+        if (limit == 0 || equalsEnabled == false) return;
+        choseNumberSecond = Number(firstButtonDisplay.textContent);
+        let result = operate();
+        firstButtonDisplay.textContent = String(result);
+        secondButtonDisplay.textContent = "";
+
+
         return;
     }
 
