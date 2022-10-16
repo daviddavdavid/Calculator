@@ -49,12 +49,12 @@ function subtract(a,b) {
     return a - b;
 }
 
-function multiply(a, b) {
-    return a * b;
+function divide(a,b) {
+    return a / b;
 }
 
-function divide(a, b) {
-    return a / b;
+function multiply(a, b) {
+    return a * b;
 }
 
 //a function that enables some buttons to work again
@@ -94,18 +94,26 @@ function buttonPressed(event) {
         operatorEnabled = true;
         equalsEnabled = false;
         firstButtonDisplay.textContent = "";
+        secondButtonDisplay.textContent = "";
         return;
 
     } else if (button.className == "delete-button") {
         if (limit > 0) limit--;
+        if (firstButtonDisplay.textContent.charAt(firstButtonDisplay.textContent.length - 1) == ".") decimalEnabled = true;;
         firstButtonDisplay.textContent = firstDisplayText.slice(0, -1);
         return;
 
     } else if (button.className == "operator") {
-        if (operatorEnabled == false) return;
-        operatorGiven(button, buttonText)
-        return;
+        if (limit == 0 && button.textContent == "-") {
+            
+        } else {
+            if (operatorEnabled == false) return;
+            operatorGiven(button, buttonText)
+            return;
 
+        }
+
+        
     } else if (button.className == "decimal") {
         if (decimalEnabled == false) return;
         decimalEnabled = false;
