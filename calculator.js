@@ -3,12 +3,14 @@ const secondButtonDisplay = document.querySelector(".upper-display");
 let chosenOperator;
 let operatorEnabled = true;
 let equalsEnabled = false;
+let decimalEnabled = true;
 
 //numbers before the operator comes
 let choseNumbersFirst;
 
 let choseNumberSecond;
 let limit = 0;
+
 function operatorGiven(button, buttonText) {
     choseNumbersFirst = Number(firstButtonDisplay.textContent);
     chosenOperator = buttonText;
@@ -16,11 +18,32 @@ function operatorGiven(button, buttonText) {
     operatorEnabled = false;
     secondButtonDisplay.textContent = `${choseNumbersFirst}${chosenOperator}`;
     equalsEnabled = true;
+    limit = 0;
+
 }
+
+function equalsGiven() {
+    choseNumberSecond = Number(firstButtonDisplay.textContent);
+    let result = String(operate());
+    limit = result.length;
+    decimalEnabled = true;
+    if (result.includes(".")) {
+        result = Math.round(result * 1000) / 1000
+        decimalEnabled = false;
+    }
+
+    choseNumberSecond;
+    choseNumbersFirst;
+    firstButtonDisplay.textContent = String(result);
+    secondButtonDisplay.textContent = "";
+    
+}
+
+
 function add(a,b) {
     return a + b;
 }
-
+limit = 0;
 function subtract(a,b) {
     return a - b;
 }
@@ -33,6 +56,10 @@ function divide(a, b) {
     return a / b;
 }
 
+//a function that enables some buttons to work again
+function changeBooleans(equalsState, operatorState) {
+    
+}
 function operate() {
     
     switch(chosenOperator) {
@@ -55,36 +82,34 @@ function buttonPressed(event) {
     
     if (button.className == "clear-button") {
         limit = 0;
+        decimalEnabled = true;
+        operatorEnabled = true;
+        equalsEnabled = false;
         firstButtonDisplay.textContent = "";
         return;
+
     } else if (button.className == "delete-button") {
         if (limit > 0) limit--;
         firstButtonDisplay.textContent = firstDisplayText.slice(0, -1);
         return;
-    }
 
-    if (button.className == "operator") {
-        if (operatorEnabled == false) {
-            return;
-        }
+    } else if (button.className == "operator") {
+        if (operatorEnabled == false) return;
         operatorGiven(button, buttonText)
-        limit = 0;
         return;
-    }
 
-    if (button.className == "equals") {
+    } else if (button.className == "decimal") {
+        if (decimalEnabled == false) return;
+        decimalEnabled = false;
+        console.log("hello")
+
+    } else if (button.className == "equals") {
         if (limit == 0 || equalsEnabled == false) return;
-        choseNumberSecond = Number(firstButtonDisplay.textContent);
-        let result = operate();
-        firstButtonDisplay.textContent = String(result);
-        secondButtonDisplay.textContent = "";
-
-
+        equalsGiven()
         return;
     }
 
     limit++;
-
     if (limit < 15) {
         firstButtonDisplay.textContent += buttonText;
     }
