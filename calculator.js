@@ -25,6 +25,7 @@ function operatorGiven(button, buttonText) {
 function equalsGiven() {
     choseNumberSecond = Number(firstButtonDisplay.textContent);
     let result = String(operate());
+    if (result == "false") return;
     limit = result.length;
     decimalEnabled = true;
     if (result.includes(".")) {
@@ -32,8 +33,8 @@ function equalsGiven() {
         decimalEnabled = false;
     }
 
-    choseNumberSecond;
-    choseNumbersFirst;
+    equalsEnabled = false;
+    operatorEnabled = true;
     firstButtonDisplay.textContent = String(result);
     secondButtonDisplay.textContent = "";
     
@@ -61,7 +62,7 @@ function changeBooleans(equalsState, operatorState) {
     
 }
 function operate() {
-    
+
     switch(chosenOperator) {
         case "+":
             return add(choseNumbersFirst, choseNumberSecond);
@@ -70,6 +71,13 @@ function operate() {
         case "x":
             return multiply(choseNumbersFirst, choseNumberSecond);
         case "/":
+            if (choseNumberSecond == "0") {
+                alert("No stupid! You cannot divide by 0.")
+                firstButtonDisplay.textContent = "0";
+                return false;
+
+            }
+
             return divide(choseNumbersFirst, choseNumberSecond);
     }
 
@@ -117,7 +125,6 @@ function buttonPressed(event) {
 
 }
 
-//this applies not to the clear and delete buttons because th
 const button = document.querySelectorAll("button");
 
 button.forEach((element) => {
