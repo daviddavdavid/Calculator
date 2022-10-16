@@ -29,6 +29,7 @@ function equalsGiven() {
     limit = result.length;
     decimalEnabled = true;
     if (result.includes(".")) {
+        //makes it so the result doesn't have to many numbers behind the dot
         result = Math.round(result * 1000) / 1000
         decimalEnabled = false;
     }
@@ -99,7 +100,8 @@ function buttonPressed(event) {
 
     } else if (button.className == "delete-button") {
         if (limit > 0) limit--;
-        if (firstButtonDisplay.textContent.charAt(firstButtonDisplay.textContent.length - 1) == ".") decimalEnabled = true;;
+        if (firstButtonDisplay.textContent.charAt(firstButtonDisplay.textContent.length - 1) == ".") decimalEnabled = true;
+        //removes the last char
         firstButtonDisplay.textContent = firstDisplayText.slice(0, -1);
         return;
 
@@ -126,6 +128,7 @@ function buttonPressed(event) {
     }
 
     limit++;
+    //the limits makes it so you cannot make the calculator too big
     if (limit < 15) {
         firstButtonDisplay.textContent += buttonText;
     }
