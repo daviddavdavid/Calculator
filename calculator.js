@@ -17,6 +17,7 @@ function operatorGiven(button, buttonText) {
     firstButtonDisplay.textContent = "";
     operatorEnabled = false;
     secondButtonDisplay.textContent = `${choseNumbersFirst}${chosenOperator}`;
+    decimalEnabled = true;
     equalsEnabled = true;
     limit = 0;
 
